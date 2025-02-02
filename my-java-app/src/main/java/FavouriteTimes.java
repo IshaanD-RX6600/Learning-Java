@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 public class FavouriteTimes {
         public static void main(String[]args) {
             Scanner sc = new Scanner(System.in);
@@ -8,6 +9,13 @@ public class FavouriteTimes {
             Scanner inputScanner = new Scanner(System.in);
             inputMinutes = inputScanner.nextInt();
             inputScanner.close();
+
+            String[] minutesByUser  = FavouriteTimes4.getTime(inputMinutes);
+            //12, 27
+            // 1, 04
+
+            System.out.println("Minutes by user -> " + minutesByUser[0] + " " + minutesByUser[1]);
+
 
            String iterator;
            String fooTime;
@@ -36,14 +44,14 @@ public class FavouriteTimes {
                 if(x == y && y == z){
 
                     fooTime = a + "" + b + ":" + c + "" + d;
-                    System.out.println("Its a sequence  -> " + fooTime);
+                    //System.out.println("Its a sequence  -> " + fooTime);
                 }                
               }
               else
                 {
                     if(y == z){
                         fooTime = a + "" + b + ":" + c + "" + d;
-                        System.out.println("Its a sequence  -> " + fooTime);
+                        //System.out.println("Its a sequence  -> " + fooTime);
                     }
                 }
 
