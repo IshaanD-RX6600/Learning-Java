@@ -72,7 +72,6 @@ public class Troublesomekeys {
         }
         }
 
-    
 
         private static void compareStrings(String firstInputString, String secondInputString) {
             if(!firstInputString.equals(secondInputString))
