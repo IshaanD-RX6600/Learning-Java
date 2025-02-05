@@ -8,6 +8,8 @@ public class Troublesomekeys {
             String secondInputString = myScanner.nextLine();
 
 
+            myScanner.close();
+
         int firstInputStringLength = firstInputString.length();
         int secondInputStringLength = secondInputString.length();
 
