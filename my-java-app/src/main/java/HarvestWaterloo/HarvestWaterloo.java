@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class HarvestWaterloo {
+
+    static char[][] grid;
+
+    List<Integer> results = new ArrayList<Integer>();
+    
     public static void main(String[] args) 
 
     {
@@ -22,12 +27,10 @@ public class HarvestWaterloo {
             String row = myScanner.next();
             rows.add(row);
         }
+
+        myScanner.close();
        
-
-        System.out.println(rows.size());
-
-        char[][] grid = new char[R][C];
-
+        grid = new char[R][C];
 
         //outer for loop -> for rows
         for (int r = 0; r < R; r++)
@@ -42,8 +45,28 @@ public class HarvestWaterloo {
             }
             System.out.println(); 
         }
+        
 
-        myScanner.close();
+
+    }
+
+    int storeResults(int src, int des)
+    {
+        if (grid[src][des] == '*')
+        {
+            return 0;
+        }
+
+        if (grid[src][des] == 'S' ) return 1;
+        if (grid[src][des] == 'M') return 5;
+        if (grid[src][des] == 'L') return 10;
+
+        return 0;
+    }
+
+    void findPumpkin(int src, int dest)
+    {
+        
 
     }
 }
