@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class WordHunt {
+public class wordHunt {
     static int[] dx = {-1, -1, -1, 0, 1, 1, 1, 0}; // Row movement directions
     static int[] dy = {-1, 0, 1, 1, 1, 0, -1, -1}; // Column movement directions
 
