@@ -1,68 +1,96 @@
 import java.util.Scanner;
 
 public class wordHunt {
-    static int[] dx = {-1, -1, -1, 0, 1, 1, 1, 0}; // Row movement directions
-    static int[] dy = {-1, 0, 1, 1, 1, 0, -1, -1}; // Column movement directions
-
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        
+        Scanner scan = new Scanner(System.in);
+
         // Read the word to search for
-        String target = scanner.next();
-        
-        // Read grid size
-        int N = scanner.nextInt();
-        
+        String word = scan.next();
+
+        // Read the number of rows and columns
+        int rows = scan.nextInt();
+        int columns = scan.nextInt();
+
+        scan.nextLine();
+
         // Read the grid
-        char[][] grid = new char[N][N];
-        for (int i = 0; i < N; i++) {
-            grid[i] = scanner.next().toCharArray();
+        char[][] grid = new char[rows][columns];
+        for (int i = 0; i < rows; i++) {
+            String[] characters = scan.nextLine().split(" "); // breal the line into characters
+            for (int j = 0; j < columns; j++) {
+                grid[i][j] = characters[j].charAt(0); // get the first character of the string
+            }
         }
-        
-        scanner.close();
 
-        // Count occurrences of the word in all directions
-        int count = countOccurrences(grid, target, N);
-        
-        // Output the count
-        System.out.println(count);
+        scan.close(); 
+
+        // Output the 2D array (for debugging purposes)
+        System.out.println("The 2D array is:");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                System.out.print(grid[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+        // Search for the word vertically
+        char firstLetter = word.charAt(0);
+
+        verticalSearch(grid, word, rows, columns, firstLetter);
+        // boolean found = true;
+        // for (int i = 0; i < rows; i++) {
+        //     for (int j = 0; j < columns; j++) {
+        //         if (grid[i][j] == firstLetter) { 
+        //             for (int k = 0; k < word.length(); k++) {
+        //                 if(i + k >= rows || grid[i + k][j] != word.charAt(k)) {
+        //                     found = false;
+        //                     break;
+        //                 }
+        //             }
+                    
+        //         }
+        //     }
+        // }
+        // if (found) {
+        //     System.out.println("Found ");
+        // }
+        // else{
+        //     System.out.println("Not found");
+        // }
     }
 
-    private static int countOccurrences(char[][] grid, String word, int N) {
-        int wordLength = word.length();
-        int count = 0;
+    static void verticalSearch(char[][] grid, String word, int rows, int columns, char firstLetter) {
+        boolean found = true;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if (grid[i][j] == firstLetter) { 
+                    for (int k = 0; k < word.length(); k++) {
+                        if ( i + k >= rows ||  grid[i + k][j] != word.charAt(k) ) {
 
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                // Check in all 8 possible directions
-                for (int dir = 0; dir < 8; dir++) {
-                    if (canFit(i, j, dir, N, wordLength) && searchFrom(grid, word, i, j, dir, wordLength)) {
-                        count++;
-                    }
+                            if (grid[i + k][j] == firstLetter)
+                            {
+                                recurse(k, rows, columns, grid, word);
+                            }
+
+                            found = false;
+                            break;
+                        }
+                    } 
                 }
-            }
+        } 
+    }
+   
+   if (found) {
+            System.out.println("Found ");
         }
-        return count;
+        else{
+            System.out.println("Not found");
+        }
     }
 
-    private static boolean canFit(int x, int y, int dir, int N, int length) {
-        // Compute the last position in this direction
-        int newX = x + (length - 1) * dx[dir];
-        int newY = y + (length - 1) * dy[dir];
+    static void recurse(int k, int rows, int columns, char[][] grid, String word) {
 
-        // Check if it's inside the grid
-        return newX >= 0 && newX < N && newY >= 0 && newY < N;
-    }
 
-    private static boolean searchFrom(char[][] grid, String word, int x, int y, int dir, int length) {
-        for (int k = 0; k < length; k++) {
-            int newX = x + k * dx[dir];
-            int newY = y + k * dy[dir];
 
-            if (grid[newX][newY] != word.charAt(k)) {
-                return false;
-            }
-        }
-        return true;
     }
 }
